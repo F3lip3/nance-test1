@@ -1,0 +1,48 @@
+scalar DateTime
+
+enum UserRole {
+  ADMIN
+  COMMON
+}
+
+enum UserStatus {
+  ACTIVE
+  REMOVED
+}
+
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+  status: UserStatus!
+  role: UserRole!
+  created_at: DateTime!
+  updated_at: DateTime!
+  removed_at: DateTime!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  id: Int!
+  name: String
+  email: String
+  password: String
+  status: UserStatus
+}
+
+type Query {
+  users: [User]!
+  user(id: Int!): User
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User
+}
