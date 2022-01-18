@@ -21,7 +21,7 @@ model User {
   id          Int         @id @default(autoincrement())
   email       String      @unique @db.VarChar(200)
   name        String      @db.VarChar(200)
-  password    String      @db.VarChar(36)
+  password    String      @db.VarChar(60)
   status      UserStatus  @default(ACTIVE)
   role        UserRole    @default(COMMON)
   created_at  DateTime    @default(now())

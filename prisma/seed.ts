@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { encrypt } from '../src/common/helpers/crypto';
 
 const prisma = new PrismaClient();
 
@@ -8,7 +9,7 @@ async function main() {
     data: {
       email: 'admin@nance.com',
       name: 'Main Admin',
-      password: 'nance@POWER!',
+      password: encrypt('nance@POWER!'),
       status: 'ACTIVE',
       role: 'ADMIN'
     }
