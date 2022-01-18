@@ -31,11 +31,13 @@ export class UsersResolver {
 
   @Mutation('updateUser')
   async update(@Args('updateUserInput') data: UpdateUserInput) {
-    const existing = await this.usersService.findOneByEmail(data.email);
-    if (existing?.id !== data.id) {
-      throw new BadRequestException(
-        'An user with the provided email already exists.'
-      );
+    if (data.email) {
+      const existing = await this.usersService.findOneByEmail(data.email);
+      if (existing?.id !== data.id) {
+        throw new BadRequestException(
+          'An user with the provided email already exists.'
+        );
+      }
     }
 
     return this.usersService.update({

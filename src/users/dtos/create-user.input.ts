@@ -6,9 +6,10 @@ import {
   MaxLength,
   MinLength
 } from 'class-validator';
+import { CreateUserInput as CreateUserInputModel } from '../../graphql';
 
 @InputType()
-export class CreateUserInput {
+export class CreateUserInput implements CreateUserInputModel {
   @IsNotEmpty()
   @Length(5, 200)
   name: string;
