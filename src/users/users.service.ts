@@ -20,14 +20,14 @@ export class UsersService {
   }
 
   update({ id, ...data }: UpdateUserInput) {
-    this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id },
       data
     });
   }
 
   remove(id: number) {
-    this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id },
       data: {
         status: 'REMOVED',

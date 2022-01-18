@@ -30,8 +30,18 @@ export class UsersResolver {
   }
 
   @Mutation('updateUser')
-  update(@Args('updateUserInput') data: UpdateUserInput) {
-    return this.usersService.update(data);
+  async update(@Args('updateUserInput') data: UpdateUserInput) {
+    const existing = await this.usersService.findOneByEmail(data.email);
+    if (existing?.id !== data.id) {
+      throw new BadRequestException(
+        'An user with the provided email already exists.'
+      );
+    }
+
+    return this.usersService.update({
+      ...data,
+      password: encrypt(data.password)
+    });
   }
 
   @Mutation('removeUser')
